@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block main %}
+      
+<div class="row">
+  {%  if error %}
+      <div class="col-md-8 col-md-push-1 alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>ERROR<br/></strong>{{ error }}<br/>Try again.
+      </div>
+  {%  endif %}
+  <div class="col-md-8 col-md-push-1 list-group">
+    <legend class="page-header">Events</legend>
+    {% for event in events %}
+
+
+      {% if current_user.id == event.user.id%}
+        <a href="/events/{{event.id}}" class="list-group-item">
+            <b>{{event.title}}</b> <span class="label label-primary">edit</span>
+            <br/><span class="small">[{{ event.comments|length }} comments]</span>
+        </a>
+      {% else %}
+        <a href="/events/{{event.id}}" class="list-group-item">
+          <b>{{event.title}}</b>
+          <br/><span class="small">[{{ event.comments|length }} comments]</span>
+        </a>
+      {% endif %}
+
+    {% endfor %}
+
+  </div>
+
+  
+</div>
+
+
+{% endblock %}

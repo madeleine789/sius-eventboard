@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block main %}
+{%  if error %}
+
+            <div class="alert alert-dismissible alert-danger">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>ERROR: </strong> <a href="/" class="alert-link"> {{ error }}</a>. Try again.
+            </div>
+{%  else %}
+<div class="row">
+  <div class="col-md-8 col-md-push-1">
+    <legend class="page-header">User profile</legend>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+         <strong>Info</strong>
+      </div>
+      <div class="panel-body">
+        <p><b>Email:</b>  {{ user.email }}  </p>
+          {% if user.isAdmin %}
+            <p><b>Role:</b>  CREATOR</p>
+          {% else %}
+            <p><b>Role:</b>  COMMENTER</p>
+          {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+  
+</div>
+{% endif %}
+
+{% endblock %}

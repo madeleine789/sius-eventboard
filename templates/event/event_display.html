@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block main %}
+
+{%  if error %}
+
+            <div class="alert alert-dismissible alert-danger page-header">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>ERROR: </strong> <a href="/register" class="alert-link"> {{ error }}</a>. Try submitting again.
+            </div>
+{%  else %}
+
+<div class="page-header">
+	<legend>
+        {{event.title}}
+        {% if current_user.id == event.user.id%}
+        <a href="/events/{{event.id}}/edit"><span class="label label-info ">edit</span></a>
+        {%  else %}
+            <p><small><strong>Created by: </strong><a href="/users/{{author.id}}">{{ author.email }}</a></small></p>
+        {% endif %}
+    </legend>
+</div>
+
+<div class="row-fluid">
+	
+	<div class="col-md-10">
+
+    <blockquote>
+        <strong >Starting: </strong> {{ event.starting_at.strftime('%d-%m-%Y %H:%M ') }}
+        <br/>
+        <strong>Ending: </strong> {{ event.ending_at.strftime('%d-%m-%Y %H:%M ') }}
+        <br/><br/>
+        <strong >Description: </strong>
+		<p class="well" style="font-size: smaller">{{ event.description }}<p>
+    </blockquote>
+        <br/><br/>
+        <hr>
+        <h3>Tweets</h3>
+            {% if tweet_ids %}
+                {%  for tweet_id in tweet_ids %}
+                    {{ oembed_tweet(tweet_id) }}
+                {% endfor %}
+
+            {% else %}
+                <li class="list-group-item text-center">
+                    <b>No tweets found.</b>
+                </li>
+            {% endif %}
+        <hr>
+        <h3>Comments</h3>
+          {% if event.comments %}
+            {% for comment in event.comments %}
+                <li class="list-group-item">
+                    <p>{{ comment.body }}</p>
+                   <p><strong>{{ comment.author }}</strong> <small>on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</small></p>
+                </li>
+            {% endfor %}
+          {% else %}
+            <li class="list-group-item text-center">
+                <b>No comments.</b>
+            </li>
+
+          {% endif %}
+        <br/>
+		<hr>
+    <h3>Add a comment</h3>
+    {% if current_user.is_authenticated() %}
+    <form method="POST" class="form-horizontal" modelAttribute="comment" action="/events/{{event.id}}">
+      <li class="list-group-item">
+          <div class="row">
+          <div class="col-md-10">
+              <input name="body" id="body" class="form-control" placeholder="Enter your comment" required/>
+              <input name="author" id="author" value="{{ current_user.email }}"class="form-control" type="hidden"/>
+          </div>
+          <div class="col-sm-2 text-center">
+              <button type="submit" class="btn btn-md btn-success">Submit</button>
+          </div>
+          </div>
+      </li>
+    </form>
+    {% else %}
+        <li class="list-group-item text-center">
+                <b><a href="/login">Log in</a> to post a comment</b>
+        </li>
+
+    {% endif %}
+
+	</div>
+
+</div>
+{%  endif %}
+{% endblock %}
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

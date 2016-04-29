@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+
+{% block main %}
+<div class="row">
+
+	<div class="col-md-9">
+		
+		<!--div>
+            {% with messages = get_flashed_messages() %}
+		  {% if messages %}
+		    <ul class=flashes>
+		    {% for message in messages %}
+		    <span class="label label-success">{{message}}</span>
+		    {% endfor %}
+		    </ul>
+		  {% endif %}
+		{% endwith %}
+        </div--->
+
+        {%  if error %}
+
+            <div class="alert alert-dismissible alert-danger">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>ERROR<br/></strong>{{ error }}<br/>Try again.
+            </div>
+        {%  endif %}
+		<form method="POST" action="" id="new_event_form" class="well form-horizontal">
+
+          		<legend>
+          			{{title}}
+          			{% if event %}
+          			<a href="/events/{{event.id}}" style="font-size: small">(view event)</a>
+          			{% endif %}
+
+          		</legend>
+                <h5>Title:</h5>
+				<div class="control-group controls">
+					  <input type="text" class="form-control input-lg" name="title" id="title" value="{{event.title}}" required>
+					  <p class="hide help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+				</div>
+                <h5>Start:</h5>
+                      <div class="form-group control-label" style="margin-left: inherit;">
+                          <div class="input-group date form_datetime start col-md-5" id="date-start" data-date="2015-06-01T08:00:00Z" data-date-format="dd MM yyyy - hh:ii" data-link-field="starting_at">
+                              <input class="form-control" size="16" type="text" data-date-format="dd MM yyyy - hh:ii" value="" readonly>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                          </div>
+                          <input data-provide="datetimepicker" data-date-format="%d %B %Y - %H:%M" name="starting_at"  type="hidden" id="starting_at" value="" /><br/>
+                      </div>
+                      <h5>End:</h5>
+                      <div class="form-group control-label" style="margin-left: inherit;">
+                          <div class="input-group date form_datetime end col-md-5" id="date-end" data-date="2015-06-01T09:00:00Z" data-date-format="dd MM yyyy - hh:ii" data-link-field="ending_at" >
+                              <input class="form-control" size="16" type="text" data-date-format="dd MM yyyy - hh:ii" value="" readonly>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                          </div>
+                          <input data-provide="datetimepicker" data-date-format="%d %B %Y - %H:%M" name="ending_at"  type="hidden" id="ending_at" value="" /><br/>
+                      </div>
+				
+		        <h5>Description:</h5>
+				<div class="control-group controls">
+					<textarea class="form-control" size="30" name="content" id="content" required>{{event.description}}</textarea>
+				</div>
+                <br/>
+			
+			<input type="submit" value="Save event" class="btn btn-primary">
+		</form>
+
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+                      $(document).ready(function() {
+
+
+                          $('.form_datetime').datetimepicker({
+                              weekStart: 1,
+                              todayBtn:  1,
+                              autoclose: 1,
+                              todayHighlight: 1,
+                              startView: 2,
+                              minView: 0,
+                              maxView: 2,
+                              forceParse: 0
+                          });
+                          var start = new Date();
+                          var end = new Date(start.getTime() + 60 * 60000);
+                          $('#date-start').datetimepicker('setDate', start);
+                          $('#date-end').datetimepicker('setDate', end);
+
+                          $('#date-start').datetimepicker().on('changeDate', function(ev){
+                              var start = $('#date-start').datetimepicker('getDate');
+                              var end = new Date(start.getTime() + 60 * 60000);
+                              $('#starting_at').val(ev.date.valueOf().format('%Y-%m-%d %H:%M:%S'));
+                              $('#date-end').datetimepicker('setDate', end);
+                          });
+                          $('#date-end').datetimepicker().on('changeDate', function(ev){
+                              $('#ending_at').val(ev.date.valueOf().format('%Y-%m-%d %H:%M:%S'))
+                          });
+                      });
+                  </script>
+{% endblock %}
