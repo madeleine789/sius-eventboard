@@ -15,7 +15,7 @@
         {% if current_user.id == event.user.id%}
         <a href="/events/{{event.id}}/edit"><span class="label label-info ">edit</span></a>
         {%  else %}
-            <p><small><strong>Created by: </strong><a href="/users/{{author.id}}">{{ author.email }}</a></small></p>
+            <p><small><strong>Created by: </strong><a href="/users/{{author.id}}">{{ author.username }}</a></small></p>
         {% endif %}
     </legend>
 </div>
@@ -69,7 +69,7 @@
           <div class="row">
           <div class="col-md-10">
               <input name="body" id="body" class="form-control" placeholder="Enter your comment" required/>
-              <input name="author" id="author" value="{{ current_user.email }}"class="form-control" type="hidden"/>
+              <input name="author" id="author" value="{{ current_user.username }}"class="form-control" type="hidden"/>
           </div>
           <div class="col-sm-2 text-center">
               <button type="submit" class="btn btn-md btn-success">Submit</button>
