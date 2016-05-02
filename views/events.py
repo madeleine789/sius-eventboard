@@ -67,7 +67,7 @@ def admin_entry_create():
 			'title': 'Create new event',
 			'event': None,
 		}
-		return render_template('/event/event_edit.html', **data)
+		return render_template('event/event_edit.html', **data)
 
 
 @events_app.route("/events/<event_id>/edit", methods=["GET", "POST"])
@@ -129,7 +129,7 @@ def post_comment(event_id):
 	if event:
 		if request.method == "POST":
 			comment = models.Comment()
-			comment.author = current_user.email
+			comment.author = current_user.username
 			comment.body = request.form.get('body')
 
 			event.comments.append(comment)

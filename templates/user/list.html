@@ -5,7 +5,7 @@
   <div class="col-md-8 col-md-push-1 list-group">
     <legend class="page-header">Users</legend>
     {% for user in users %}
-      <p>{{ loop.index }}. {{ user.email }} ({{ user.id }}, {{ user.isAdmin }}, {{ user.password }})</p>
+      <p>{{ loop.index }}. {{ user.username }} ({{ user.id }}, {{ user.isAdmin }}, {{ user.password }})</p>
     {% endfor %}
 
   </div>

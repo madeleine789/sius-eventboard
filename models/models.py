@@ -5,8 +5,8 @@ from app import db
 
 
 class User(db.Document):
-    email = db.EmailField(unique=True)
-    password = db.StringField(default=True)
+    username = db.StringField(max_length=50, required=True)
+    password = db.StringField(default="")
     active = db.BooleanField(default=True)
     isAdmin = db.BooleanField()
     timestamp = db.DateTimeField(default=datetime.datetime.now())
