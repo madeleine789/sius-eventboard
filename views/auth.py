@@ -73,8 +73,7 @@ def reauth():
     if request.method == "POST":
         confirm_login()
         return redirect(request.args.get("next") or '/admin')
-    data = {}
-    return render_template("auth/login.html", **data)
+    return redirect('/login/twitter')
 
 
 @auth_app.route("/logout")
@@ -83,7 +82,7 @@ def logout():
     logout_user()
     for key in ('identity.name', 'identity.auth_type'):
         session.pop(key, None)
-    return redirect('/login')
+    return redirect('/login/twitter')
 
 
 @twitter.tokengetter
@@ -121,6 +120,7 @@ def oauth_authorized(resp):
             return redirect('/')
     else:
         login_user(user)
+        sleep(50)
         return redirect('/')
 
 
@@ -132,10 +132,10 @@ def unauthorized_callback():
 @login_manager.user_loader
 def load_user(id):
     if id is None:
-        redirect('/login')
+        redirect('/login/twitter')
     user = User()
     user = user.get_by_id(id)
     if user.is_active():
         return user
     else:
-        redirect('/login')
+        redirect('/login/twitter')
