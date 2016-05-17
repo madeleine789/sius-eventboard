@@ -38,8 +38,7 @@
         {% if current_user.is_authenticated() %}
             <li class=" active"> <a href="/events/create">Create new event</a> </li>
         {% else %}
-        <li class="active"><a href="/login">Login</a></li>
-        <li class="active"><a href="/register">Register</a></li>
+        <li class="active"><a href="/login/twitter">Login with Twitter</a></li>
         {% endif %}
       </ul>
         {% if current_user.is_authenticated() %}
