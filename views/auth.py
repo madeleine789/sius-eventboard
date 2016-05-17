@@ -80,6 +80,7 @@ def reauth():
 @login_required
 def logout():
     logout_user()
+    session.pop('screen_name', None)
     for key in ('identity.name', 'identity.auth_type'):
         session.pop(key, None)
     return redirect('/login/twitter')

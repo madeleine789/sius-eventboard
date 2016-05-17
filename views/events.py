@@ -5,7 +5,7 @@ __author__ = 'mms'
 
 from datetime import datetime
 
-from flask import Blueprint, render_template, request, redirect, g, url_for
+from flask import Blueprint, render_template, request, redirect, g, url_for, session
 from flask.ext.login import (current_user, fresh_login_required)
 from models import models
 from libs import tweets
@@ -23,6 +23,10 @@ def load_user():
 @events_app.route('/')
 @cache.cached(timeout=50)
 def index():
+	access_token = session.get('access_token')
+	if access_token is None:
+		return redirect('/login/twitter')
+	access_token = access_token[0]
 	data = {
 		'events': models.Event.objects.order_by("-last_updated")
 	}
