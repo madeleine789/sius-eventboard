@@ -9,6 +9,7 @@ from flask import Blueprint, render_template, request, redirect, g, url_for, ses
 from flask.ext.login import (current_user, fresh_login_required)
 from models import models
 from libs import tweets
+import elasticsearch
 
 events_app = Blueprint('events_app', __name__, template_folder='templates')
 
