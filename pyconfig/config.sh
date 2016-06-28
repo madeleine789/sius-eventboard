@@ -2,3 +2,5 @@
 pip install virtualenv
 virtualenv flask
 flask/bin/pip install -r pyconfig/requirements.txt
+
+pip install elasticsearch
