@@ -82,7 +82,7 @@ def admin_entry_create():
 
 		event.user = current_user.get_mongo_doc()
 		event.save()
-                elastic_save(event.title,event.starting_at,event.ending_at,event.description)
+                elastic_save(event.title,event.starting_at,event.ending_at,event.description,event.user)
 		status = event.title + ': ' + event.description
 		if len(status) > 140: status = status[:137] + '...'
 		tweets.post(status=status)
@@ -95,12 +95,13 @@ def admin_entry_create():
 		}
 		return render_template('event/event_edit.html', **data)
 
-def elastic_save(title,start,end,description):
+def elastic_save(title,start,end,description,user):
         es.index(index='events', doc_type='event', body={
             'title': title,
             'start': start,
             'end': end,
-            'description': description
+            'description': description,
+            'user': user.username
         })
 
 @events_app.route("/events/<event_id>/edit", methods=["GET", "POST"])
