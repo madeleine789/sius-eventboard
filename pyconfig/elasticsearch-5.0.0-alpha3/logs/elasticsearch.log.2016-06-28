@@ -1,0 +1,27 @@
+[2016-06-28 12:05:21,993][INFO ][node                     ] [Andrew Chord] version[5.0.0-alpha3], pid[14253], build[cad959b/2016-05-26T08:25:57.564Z], OS[Linux/3.19.0-25-generic/amd64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_91/25.91-b14]
+[2016-06-28 12:05:21,996][INFO ][node                     ] [Andrew Chord] initializing ...
+[2016-06-28 12:05:36,073][INFO ][plugins                  ] [Andrew Chord] modules [percolator, lang-mustache, lang-painless, ingest-grok, reindex, lang-expression, lang-groovy], plugins []
+[2016-06-28 12:05:38,971][INFO ][env                      ] [Andrew Chord] using [1] data paths, mounts [[/ (/dev/sda1)]], net usable_space [21.9gb], net total_space [28.4gb], spins? [possibly], types [ext4]
+[2016-06-28 12:05:38,972][INFO ][env                      ] [Andrew Chord] heap size [1.9gb], compressed ordinary object pointers [true]
+[2016-06-28 12:06:04,196][INFO ][node                     ] [Andrew Chord] initialized
+[2016-06-28 12:06:04,203][INFO ][node                     ] [Andrew Chord] starting ...
+[2016-06-28 12:06:05,461][INFO ][transport                ] [Andrew Chord] publish_address {127.0.0.1:9300}, bound_addresses {[::1]:9300}, {127.0.0.1:9300}
+[2016-06-28 12:06:05,537][WARN ][bootstrap                ] [Andrew Chord] initial heap size [268435456] not equal to maximum heap size [2147483648]; this can cause resize pauses and prevents mlockall from locking the entire heap
+[2016-06-28 12:06:05,537][WARN ][bootstrap                ] [Andrew Chord] max file descriptors [4096] for elasticsearch process likely too low, increase to at least [65536]
+[2016-06-28 12:06:05,538][WARN ][bootstrap                ] [Andrew Chord] please set [discovery.zen.minimum_master_nodes] to a majority of the number of master eligible nodes in your cluster
+[2016-06-28 12:06:05,538][WARN ][bootstrap                ] [Andrew Chord] max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
+[2016-06-28 12:06:08,901][INFO ][cluster.service          ] [Andrew Chord] new_master {Andrew Chord}{KP6duQN3TW63gSMah4H6Lw}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2016-06-28 12:06:08,965][INFO ][http                     ] [Andrew Chord] publish_address {127.0.0.1:9200}, bound_addresses {[::1]:9200}, {127.0.0.1:9200}
+[2016-06-28 12:06:08,966][INFO ][node                     ] [Andrew Chord] started
+[2016-06-28 12:06:09,434][INFO ][gateway                  ] [Andrew Chord] recovered [0] indices into cluster_state
+[2016-06-28 12:26:35,803][INFO ][cluster.metadata         ] [Andrew Chord] [tweets] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings [tweet]
+[2016-06-28 12:26:37,950][INFO ][cluster.routing.allocation] [Andrew Chord] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[tweets][4], [tweets][4]] ...]).
+[2016-06-28 12:26:38,339][INFO ][cluster.metadata         ] [Andrew Chord] [tweets/G20LtOZ5TMyjdtPnfFF3Mg] update_mapping [tweet]
+[2016-06-28 12:26:40,011][WARN ][monitor.jvm              ] [Andrew Chord] [gc][young][1232][6] duration [1.2s], collections [1]/[2s], total [1.2s]/[5.5s], memory [86.7mb]->[29.1mb]/[1.9gb], all_pools {[young] [63mb]->[596.4kb]/[66.5mb]}{[survivor] [8.3mb]->[8.3mb]/[8.3mb]}{[old] [15.4mb]->[20.2mb]/[1.9gb]}
+[2016-06-28 12:26:40,017][WARN ][monitor.jvm              ] [Andrew Chord] [gc][1232] overhead, spent [1.2s] collecting in the last [2s]
+[2016-06-28 14:20:49,813][WARN ][monitor.jvm              ] [Andrew Chord] [gc][young][8026][7] duration [13.5s], collections [1]/[13.9s], total [13.5s]/[19.1s], memory [95.1mb]->[27.4mb]/[1.9gb], all_pools {[young] [66.5mb]->[485.3kb]/[66.5mb]}{[survivor] [8.3mb]->[3.8mb]/[8.3mb]}{[old] [20.2mb]->[23mb]/[1.9gb]}
+[2016-06-28 14:20:50,360][WARN ][monitor.jvm              ] [Andrew Chord] [gc][8026] overhead, spent [13.5s] collecting in the last [13.9s]
+[2016-06-28 14:37:24,695][INFO ][node                     ] [Andrew Chord] stopping ...
+[2016-06-28 14:37:40,507][INFO ][node                     ] [Andrew Chord] stopped
+[2016-06-28 14:37:40,510][INFO ][node                     ] [Andrew Chord] closing ...
+[2016-06-28 14:37:44,821][INFO ][node                     ] [Andrew Chord] closed

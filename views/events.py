@@ -11,7 +11,9 @@ from models import models
 from libs import tweets
 import elasticsearch
 
+es = elasticsearch.Elasticsearch()
 events_app = Blueprint('events_app', __name__, template_folder='templates')
+
 
 
 @events_app.before_request
@@ -33,6 +35,25 @@ def index():
 	}
 	return render_template('index.html', **data)
 
+@events_app.route("/events/search", methods=["GET", "POST"])
+@fresh_login_required
+def admin_entry_search():
+        if request.method == "GET":
+                data = {
+			'title': 'Search for an event',
+			'event': None,
+		}
+		return render_template('event/event_search.html', **data)
+        else:
+                title = request.form.get('title')
+                res = es.search(index='events', q='title:"'+title+'"')
+                reslist = [];
+                for hit in res['hits']['hits']:
+                        reslist.append(hit["_source"])
+                data = {
+        		'events': reslist
+        	}
+                return render_template('event/events_list.html', **data)
 
 @events_app.route("/events/create", methods=["GET", "POST"])
 @fresh_login_required
@@ -61,7 +82,7 @@ def admin_entry_create():
 
 		event.user = current_user.get_mongo_doc()
 		event.save()
-
+                elastic_save(event.title,event.starting_at,event.ending_at,event.description)
 		status = event.title + ': ' + event.description
 		if len(status) > 140: status = status[:137] + '...'
 		tweets.post(status=status)
@@ -74,6 +95,13 @@ def admin_entry_create():
 		}
 		return render_template('event/event_edit.html', **data)
 
+def elastic_save(title,start,end,description):
+        es.index(index='events', doc_type='event', body={
+            'title': title,
+            'start': start,
+            'end': end,
+            'description': description
+        })
 
 @events_app.route("/events/<event_id>/edit", methods=["GET", "POST"])
 @fresh_login_required
